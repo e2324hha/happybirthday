@@ -75,9 +75,12 @@ function createLineLeft(messageData) {
     const lineLeft = document.createElement('div');
     lineLeft.classList.add('line__left');
 
-    const figure = document.createElement('figure');
-    img.src = 'image/icon.png'; // icon.png がimagesフォルダにある前提
-    figure.appendChild(img);
+    /* ★★★ この部分が完全に削除されていることを確認 ★★★ */
+    // const figure = document.createElement('figure');
+    // const img = document.createElement('img');
+    // img.src = 'image/icon.png';
+    // figure.appendChild(img);
+    /* ★★★ ここまで削除されていることを確認 ★★★ */
 
     const textContainer = document.createElement('div');
     textContainer.classList.add('line__left-text');
@@ -93,8 +96,9 @@ function createLineLeft(messageData) {
     textContainer.appendChild(nameDiv);
     textContainer.appendChild(textDiv);
 
-    lineLeft.appendChild(figure);
-    lineLeft.appendChild(textContainer);
+    /* ★★★ この行も削除されていることを確認 ★★★ */
+    // lineLeft.appendChild(figure); // もし残っていたら削除
+    lineLeft.appendChild(textContainer); // textContainerのみを直接追加
 
     return lineLeft;
 }
