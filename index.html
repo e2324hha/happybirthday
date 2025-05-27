@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>お祝いWEBサイト</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <section class="section1">
+        <div id="balloon-container" class="balloons"></div>
+        <div id="happy-birthday">Happy Birthday!</div>
+        <div class="cracker cracker-left"></div>
+        <div class="cracker cracker-right"></div>
+        <button id="balloon-button">?</button>
+      </section>
+      <section class="section2">
+        <div class="line__container">
+          <div class="line__title">お祝いメッセージ</div>
+          <div id="line__contents" class="line__contents scroll"></div>
+        </div>
+      </section>
+      <section class="section3">
+        <video controls muted>
+          <source src="image/game.mp4" type="video/mp4" />
+          お使いのブラウザは動画をサポートしていません。
+        </video>
+      </section>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>

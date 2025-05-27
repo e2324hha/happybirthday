@@ -1,0 +1,314 @@
+body {
+  margin: 0;
+  overflow-x: hidden;
+  perspective: 1200px;
+  transform-style: preserve-3d;
+  background-color: #7193c1; /* 全体の背景色 */
+}
+
+.container {
+  height: 100vh;
+  overflow-y: auto;
+  scroll-snap-type: y mandatory; /* 一画面スクロールの肝 */
+  transform-style: preserve-3d;
+  scroll-behavior: smooth;
+  position: relative; /* 風船アニメーションの基準にするため */
+}
+
+section {
+  position: relative; /* 子要素の配置基準 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh; /* 各セクションが画面いっぱいに */
+  color: white;
+  font-size: 2em;
+  text-align: center;
+  scroll-snap-align: start; /* スクロール時の位置 */
+  transform-origin: center center;
+  transition: transform 0.6s cubic-bezier(0.215, 0.61, 0.355, 1), opacity 0.6s cubic-bezier(0.215, 0.61, 0.355, 1);
+  backface-visibility: hidden;
+}
+
+/* 各セクションの背景色 */
+.section1 {
+  background-color: #3498db;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.section2 {
+  background-color: #7193c1; /* LINEの背景色に近い色 */
+  padding: 20px;
+  overflow-y: auto; /* section自体がスクロールする可能性を考慮 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start; /* コンテンツを上から配置 */
+}
+
+.section3 {
+  background-color: #2ecc71;
+}
+
+/* --- スクロール時のカード変形アニメーション --- */
+.section.prev {
+  transform: translateY(-40%) rotateX(20deg) scale(0.9);
+  opacity: 0.7;
+}
+
+.section.current {
+  transform: translateY(0) rotateX(0deg) scale(1);
+  opacity: 1;
+}
+
+.section.next {
+  transform: translateY(40%) rotateX(-20deg) scale(0.9);
+  opacity: 0.7;
+}
+
+/* --- セクション1: Happy Birthday! とクラッカー --- */
+#happy-birthday {
+  font-size: 3em;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 20px;
+  z-index: 1; /* クラッカーより前面に */
+}
+
+/* --- セクション2: LINE風メッセージ --- */
+.line__container {
+  width: 80%;
+  
+  display: flex;
+  flex-direction: column;
+  background-color: #7193c1; /* トーク背景色 */
+  border-radius: 10px;
+  overflow: hidden; /* タイトルとコンテンツを内側に保つ */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.line__title {
+  background-color: #e0f7fa; /* タイトルバーの色 */
+  padding: 15px;
+  text-align: center;
+  font-weight: bold;
+  color: #333;
+  border-bottom: 1px solid #ccc;
+  font-size: 1.2em;
+}
+
+.line__contents {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto; /* 会話エリアのスクロール */
+  max-height: 70vh; /* メッセージが多い場合の最大高さ */
+  flex-grow: 1; /* コンテナ内で残りの高さを埋める */
+}
+
+.line__left {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+.line__left-text::before {
+    content: '';
+    position: absolute;
+    top: 10px; /* 吹き出しのどこから出すか */
+    left: -7px; /* 吹き出しの左端から少しはみ出す */
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 8px 8px 8px 0; /* 三角形のサイズと向き */
+    border-color: transparent #fff transparent transparent; /* 吹き出しの背景色と同じ */
+}
+
+.line__left-text {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 10px;
+  position: relative;
+  word-break: break-word;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  flex-grow: 1; /* テキストが可能な限り幅を埋める */
+
+    text-align: left;
+}
+
+.line__left-text .name {
+  font-size: 0.8em;
+  color: #999;
+  margin-bottom: 3px;
+}
+
+.line__left-text .text {
+  color: #333;
+}
+
+/* Balloons */
+.balloons div {
+  position: absolute;
+  bottom: -150px;
+  width: 80px;
+  height: 100px;
+  border-radius: 50%;
+  box-shadow: -6px -6px 0 rgba(0, 0, 0, 0.15) inset;
+}
+
+.balloons div:before {
+  content: '';
+  position: absolute;
+  left: 38px;
+  bottom: -70px;
+  width: 2px;
+  height: 70px;
+  background: #a0a0a0;
+  transform: rotate(5deg);
+}
+
+.balloons div:nth-child(1) {
+  left: 5%;
+  background: #ff9999;
+  animation: fly 12s ease-in-out infinite;
+}
+.balloons div:nth-child(2) {
+  left: 10%;
+  background: #ffcc66;
+  animation: fly 10s ease-in-out infinite 0.5s;
+}
+.balloons div:nth-child(3) {
+  left: 15%;
+  background: #66ccff;
+  animation: fly 14s ease-in-out infinite 1s;
+}
+.balloons div:nth-child(4) {
+  left: 20%;
+  background: #99ff99;
+  animation: fly 11s ease-in-out infinite 1.5s;
+}
+.balloons div:nth-child(5) {
+  left: 25%;
+  background: #cc99ff;
+  animation: fly 13s ease-in-out infinite 2s;
+}
+.balloons div:nth-child(6) {
+  left: 30%;
+  background: #ff6699;
+  animation: fly 9s ease-in-out infinite 2.5s;
+}
+.balloons div:nth-child(7) {
+  left: 35%;
+  background: #ff9999;
+  animation: fly 15s ease-in-out infinite 3s;
+}
+.balloons div:nth-child(8) {
+  left: 40%;
+  background: #ffcc66;
+  animation: fly 10s ease-in-out infinite 3.5s;
+}
+.balloons div:nth-child(9) {
+  left: 45%;
+  background: #66ccff;
+  animation: fly 12s ease-in-out infinite 4s;
+}
+.balloons div:nth-child(10) {
+  left: 50%;
+  background: #99ff99;
+  animation: fly 8s ease-in-out infinite 4.5s;
+}
+.balloons div:nth-child(11) {
+  left: 55%;
+  background: #cc99ff;
+  animation: fly 13s ease-in-out infinite 5s;
+}
+.balloons div:nth-child(12) {
+  left: 60%;
+  background: #ff6699;
+  animation: fly 11s ease-in-out infinite 5.5s;
+}
+.balloons div:nth-child(13) {
+  left: 65%;
+  background: #ff9999;
+  animation: fly 14s ease-in-out infinite 6s;
+}
+.balloons div:nth-child(14) {
+  left: 70%;
+  background: #ffcc66;
+  animation: fly 9s ease-in-out infinite 6.5s;
+}
+.balloons div:nth-child(15) {
+  left: 75%;
+  background: #66ccff;
+  animation: fly 16s ease-in-out infinite 7s;
+}
+.balloons div:nth-child(16) {
+  left: 80%;
+  background: #99ff99;
+  animation: fly 10s ease-in-out infinite 7.5s;
+}
+.balloons div:nth-child(17) {
+  left: 85%;
+  background: #cc99ff;
+  animation: fly 12s ease-in-out infinite 8s;
+}
+.balloons div:nth-child(18) {
+  left: 90%;
+  background: #ff6699;
+  animation: fly 14s ease-in-out infinite 8.5s;
+}
+.balloons div:nth-child(19) {
+  left: 95%;
+  background: #ff9999;
+  animation: fly 11s ease-in-out infinite 9s;
+}
+.balloons div:nth-child(20) {
+  left: 0%;
+  background: #ffcc66;
+  animation: fly 13s ease-in-out infinite 9.5s;
+}
+@keyframes fly {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-1000px);
+  }
+}
+
+#balloon-burst-button:hover {
+  background-color: #e6b800;
+  transform: translateY(-2px);
+}
+
+#balloon-burst-button:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
+}
+
+/* ボタンのスタイル */
+#balloon-button {
+  position: absolute;
+  bottom: 20px; /* 画面下から20px */
+  width: 80px; /* 画像の幅に合わせて調整 */
+  height: 80px; /* 画像の高さに合わせて調整 */
+  background-color: #ed1a3d;
+  border-radius: 50%;
+  background-position: center;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.1s ease;
+  z-index: 10; /* 他の要素より前面に */
+}
+
+#balloon-button:hover {
+  transform: translateY(-2px);
+}
+
+#balloon-button:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
+}
